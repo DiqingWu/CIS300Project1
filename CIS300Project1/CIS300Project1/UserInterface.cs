@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ UserInterface.cs
+ Diqing Wu
+ 
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
