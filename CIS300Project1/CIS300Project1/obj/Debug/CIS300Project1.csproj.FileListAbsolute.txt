@@ -1,0 +1,2 @@
+C:\Users\panda\Desktop\CIS501B\CIS300Retake\CIS300Project1\CIS300Project1\bin\Debug\CIS300Project1.exe.config
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\bin\Debug\CIS300Project1.exe.config
