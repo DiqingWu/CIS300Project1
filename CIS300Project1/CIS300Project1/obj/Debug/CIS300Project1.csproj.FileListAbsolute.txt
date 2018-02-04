@@ -1,2 +1,10 @@
 C:\Users\panda\Desktop\CIS501B\CIS300Retake\CIS300Project1\CIS300Project1\bin\Debug\CIS300Project1.exe.config
 C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\bin\Debug\CIS300Project1.exe.config
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\bin\Debug\CIS300Project1.exe
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\bin\Debug\CIS300Project1.pdb
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\obj\Debug\CIS300Project1.csprojResolveAssemblyReference.cache
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\obj\Debug\CIS300Project1.UserInterface.resources
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\obj\Debug\CIS300Project1.Properties.Resources.resources
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\obj\Debug\CIS300Project1.csproj.GenerateResource.Cache
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\obj\Debug\CIS300Project1.exe
+C:\Users\panda\Source\Repos\CIS300Project1\CIS300Project1\CIS300Project1\obj\Debug\CIS300Project1.pdb

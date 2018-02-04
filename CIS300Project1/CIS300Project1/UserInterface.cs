@@ -4,6 +4,7 @@
  
  */
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,6 +23,7 @@ namespace CIS300Project1
             InitializeComponent();
         }
 
+
         private void uxOpenFileButton_Click(object sender, EventArgs e)
         {
             if (uxOpenFileDialog.ShowDialog() == DialogResult.OK)
@@ -29,6 +31,8 @@ namespace CIS300Project1
                 string fn = uxOpenFileDialog.FileName;
                 try
                 {
+                    uxTextBox.Text = MatchingFinder.GetTournament(fn);
+                    uxSaveTounamentButton.Enabled = true;
                     // Read and process the file.
                 }
                 catch (Exception ex)
@@ -45,6 +49,18 @@ namespace CIS300Project1
 
         private void uxSaveTounamentButton_Click(object sender, EventArgs e)
         {
+            // save file
+            if (uxSaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(uxSaveFileDialog.FileName, uxTextBox.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
 
         }
     }

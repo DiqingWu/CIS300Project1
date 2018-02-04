@@ -34,6 +34,7 @@
             this.uxOpenFileButton = new System.Windows.Forms.ToolStripButton();
             this.uxSaveTounamentButton = new System.Windows.Forms.ToolStripButton();
             this.uxTextBox = new System.Windows.Forms.TextBox();
+            this.uxSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.uxToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,6 +110,7 @@
         private System.Windows.Forms.ToolStripButton uxOpenFileButton;
         private System.Windows.Forms.ToolStripButton uxSaveTounamentButton;
         private System.Windows.Forms.TextBox uxTextBox;
+        private System.Windows.Forms.SaveFileDialog uxSaveFileDialog;
     }
 }
 
