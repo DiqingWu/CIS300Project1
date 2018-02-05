@@ -21,7 +21,7 @@ namespace CIS300Project1
         {
             _FirstPlayer = FirstPlayer;
             _SecondPlayer = SecondPlayer;
-            _Table = _Table;
+            _Table = Table;
 
         }
 

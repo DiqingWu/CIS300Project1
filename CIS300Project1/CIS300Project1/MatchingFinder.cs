@@ -9,29 +9,30 @@ namespace CIS300Project1
 {
     public static class  MatchingFinder
     {
-        
-        private static int ValiddateElement(string input, int limit, int positionTaken ,string exception)
+
+        private static int ValiddateElement(string input, int limit, int columnPosition ,string rowPosition)
         {
             int value = Convert.ToInt32(input);
             if (value >= 0 && value < limit)
             {
                 return value;
             }
-            throw new IOException(exception);
+            throw new IOException("Line "+ columnPosition +" "+ rowPosition);
         }
-        private static Pairing[]  GetAllowableParirings(string[] input)
+        private static Pairing[]  GetAllowableParirings(string[] input,int tables)
         {
             Pairing[] pairs = new Pairing[input.Length];
             string[] line;
-            for(int i = 1; i < input.Length; i++) // part where differ array by 1;
+            int limit = tables * 2;
+            for(int i = 0; i < input.Length; i++) // part where differ array by 1;
             {
                 line = input[i].Split(',');
                 if (line[0] == line[1])
                 {
-                    throw new IOException();
+                    throw new IOException("Line "+i+1+" First player and Second player are same.");
                 }
                 else
-                pairs[i]= new Pairing(Convert.ToInt32(line[0]), Convert.ToInt32(line[1]), Convert.ToInt32(line[2])); 
+                pairs[i]= new Pairing(ValiddateElement(line[0],limit,i+1,"First Player not valid"), ValiddateElement(line[1], limit, i+1, "Second Player not valid"), ValiddateElement(line[2], tables, i+1, "Table not valid")); 
             }
             return pairs;
         }
@@ -41,35 +42,50 @@ namespace CIS300Project1
             Pairing[] tableInPosition = new Pairing[tables];
             Stack<int> backTracking = new Stack<int>();
             int currentLocation = 0;
-            for (int i = 0; i < tables*2; i++)
-            {
 
+            do//||ValiddateElement("1",1,1,"1")==0)
+            {
                 if (backTracking.Count == tables)
                     return tableInPosition;
                 else if (backTracking.Count > tables)
                 {
                     backTracking.Pop();
+                    //backTracking.Push(currentLocation);
+                    playerInPosition[currentLocation] = false;
+
                 }
                 else if (backTracking.Count < tables)
                 {
+                    if(playerInPosition[currentLocation]== false && playerInPosition[currentLocation + 1] == false)
+                    {
+                        playerInPosition[currentLocation] = true;
+                        playerInPosition[currentLocation + 1] = true;
+                        if(tableInPosition[currentLocation]==null)
+                        tableInPosition[currentLocation]= input[currentLocation];
+                        backTracking.Push(currentLocation);
+                    }
+                    currentLocation++;
+
                     /*
                     playerInPosition[i] = false;
                     playerInPosition[i + 1] = false;
                     tableInPosition[i] = null;
-                    */
-                    if(tableInPosition[i]==null)
-                    if (playerInPosition[i] == false && playerInPosition[i + 1] == false)
-                    {
-                        playerInPosition[i] = true;
-                        playerInPosition[i + 1] = true;
-                        tableInPosition[i] = new Pairing(i, i+1, i);
-                        backTracking.Push(i);
-                        currentLocation++;
-                    }
-
                     
+                    if (tableInPosition[currentLocation] == null)
+                        if (playerInPosition[currentLocation] == false && playerInPosition[currentLocation + 1] == false)
+                        {
+                            playerInPosition[currentLocation] = true;
+                            playerInPosition[currentLocation + 1] = true;
+                            tableInPosition[currentLocation] = new Pairing(currentLocation, currentLocation + 1, currentLocation);
+                            backTracking.Push(currentLocation);
+                            currentLocation++;
+                        }
+                     */
+
+
                 }
-            }
+            } while (backTracking.Count != 0 || tables * 2 > currentLocation);
+
 
             //if no matching found return null instead
             return null;
@@ -86,8 +102,12 @@ namespace CIS300Project1
 
         public static string GetTournament(string name)
         {
-            string input =  File.ReadAllText(name);
-            return "test ok";
+            string[] lines = File.ReadAllLines(name);
+            int tables = Convert.ToInt32(lines[0]);
+            string[] input = new string[lines.Length-1];
+            for (int i = 1; i < lines.Length; i++)
+                input[i-1] = lines[i];
+            return FormatTournament(GetAllowableParirings(input,tables));
         }
 
     }
