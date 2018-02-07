@@ -23,7 +23,11 @@ namespace CIS300Project1
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// OpenFileButton, open a file and pass it into matching finder and get the correct result and display it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxOpenFileButton_Click(object sender, EventArgs e)
         {
             if (uxOpenFileDialog.ShowDialog() == DialogResult.OK)
@@ -46,7 +50,11 @@ namespace CIS300Project1
                 }
             }
         }
-
+        /// <summary>
+        /// SaveTounamentButton, will save the result in the text file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxSaveTounamentButton_Click(object sender, EventArgs e)
         {
             // save file

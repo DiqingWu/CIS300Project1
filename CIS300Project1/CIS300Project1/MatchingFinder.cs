@@ -9,7 +9,14 @@ namespace CIS300Project1
 {
     public static class  MatchingFinder
     {
-
+        /// <summary>
+        /// A private method to validate an input element
+        /// </summary>
+        /// <param name="input"></param>containing a single field from a line of input.
+        /// <param name="limit"></param>giving an upper limit on a valid value contained in the field (i.e., the value should be strictly less than the limit).
+        /// <param name="columnPosition"></param>giving the line number from which the element was taken.
+        /// <param name="rowPosition"></param>containing the name of the field to be included in any exception that might need to be thrown (see the second bullet under "Exception Handling" above).
+        /// <returns></returns>return an int containing the value represented by the first parameter.
         private static int ValiddateElement(string input, int limit, int columnPosition ,string rowPosition)
         {
             int value = Convert.ToInt32(input);
@@ -19,6 +26,12 @@ namespace CIS300Project1
             }
             throw new IOException("Line "+ columnPosition +" "+ rowPosition);
         }
+        /// <summary>
+        /// A private method to get the allowable pairings from the input lines
+        /// </summary>
+        /// <param name="input"></param> a string[ ] whose elements are the lines from the input file
+        /// <param name="tables"></param> an int giving the number of tables
+        /// <returns></returns>return a Pairing[ ] containing the pairings from the input.
         private static Pairing[]  GetAllowableParirings(string[] input,int tables)
         {
             Pairing[] pairs = new Pairing[input.Length];
@@ -36,60 +49,58 @@ namespace CIS300Project1
             }
             return pairs;
         }
+        /// <summary>
+        /// A private method to find a matching
+        /// </summary>
+        /// <param name="input"></param>a Pairing[ ] containing all allowable pairings 
+        /// <param name="tables"></param> an int giving the number of tables
+        /// <returns></returns>return a Pairing[ ] containing the pairings in a matching
         private static Pairing[] GetMatching(Pairing[] input, int tables)
         {
+            //A bool[ ] whose length is the number of players 
             bool[] playerInPosition = new bool[tables*2];
+            //A Pairing[ ] whose length is the number of tables
             Pairing[] tableInPosition = new Pairing[tables];
+            //A Stack<int> containing indices into the array of allowable pairings.
             Stack<int> backTracking = new Stack<int>();
+            //An int giving the current location in the array of allowable pairings.
             int currentLocation = 0;
 
-            do//||ValiddateElement("1",1,1,"1")==0)
+            while (backTracking.Count != 0 || input.Length > currentLocation)
             {
                 if (backTracking.Count == tables)
                     return tableInPosition;
-                else if (backTracking.Count > tables)
+                else if (currentLocation >= input.Length)
                 {
-                    backTracking.Pop();
-                    //backTracking.Push(currentLocation);
-                    playerInPosition[currentLocation] = false;
+                    currentLocation = backTracking.Pop();
+                    Pairing temp = input[currentLocation];
+                    playerInPosition[temp._FirstPlayer] = false;
+                    playerInPosition[temp._SecondPlayer] = false;
+                    tableInPosition[temp._Table] = null;
 
                 }
-                else if (backTracking.Count < tables)
+                else if (playerInPosition[input[currentLocation]._FirstPlayer] == false && playerInPosition[input[currentLocation]._SecondPlayer] == false && tableInPosition[input[currentLocation]._Table]==null)
                 {
-                    if(playerInPosition[currentLocation]== false && playerInPosition[currentLocation + 1] == false)
-                    {
-                        playerInPosition[currentLocation] = true;
-                        playerInPosition[currentLocation + 1] = true;
-                        if(tableInPosition[currentLocation]==null)
-                        tableInPosition[currentLocation]= input[currentLocation];
+
+                        playerInPosition[input[currentLocation]._FirstPlayer] = true;
+                        playerInPosition[input[currentLocation]._SecondPlayer] = true;
+                        //if(tableInPosition[currentLocation]==null)
+                        tableInPosition[input[currentLocation]._Table]= input[currentLocation];
                         backTracking.Push(currentLocation);
-                    }
-                    currentLocation++;
-
-                    /*
-                    playerInPosition[i] = false;
-                    playerInPosition[i + 1] = false;
-                    tableInPosition[i] = null;
                     
-                    if (tableInPosition[currentLocation] == null)
-                        if (playerInPosition[currentLocation] == false && playerInPosition[currentLocation + 1] == false)
-                        {
-                            playerInPosition[currentLocation] = true;
-                            playerInPosition[currentLocation + 1] = true;
-                            tableInPosition[currentLocation] = new Pairing(currentLocation, currentLocation + 1, currentLocation);
-                            backTracking.Push(currentLocation);
-                            currentLocation++;
-                        }
-                     */
-
-
                 }
-            } while (backTracking.Count != 0 || tables * 2 > currentLocation);
+                currentLocation++;
+            } 
 
 
             //if no matching found return null instead
             return null;
         }
+        /// <summary>
+        /// A private method to format the tournament round
+        /// </summary>
+        /// <param name="input"></param>a Pairing[ ] containing a matching.
+        /// <returns></returns>return a string describing the corresponding tournament round as explained under "Output Format" above
         private static string FormatTournament(Pairing[] input)
         {
             StringBuilder sb = new StringBuilder();
@@ -99,15 +110,28 @@ namespace CIS300Project1
             }
             return sb.ToString();
         }
-
+        /// <summary>
+        /// A public method to get a tournament round
+        /// </summary>
+        /// <param name="name"></param> a string giving the name of the input file as its only parameter.
+        /// <returns></returns>return a string describing a valid tournament round. If no valid tournament round exists, it should return null
         public static string GetTournament(string name)
         {
             string[] lines = File.ReadAllLines(name);
+            if (lines == null)
+            {
+                throw new IOException("Input file is empty!");
+            }
+            else if (Convert.ToInt32(lines[0]) <= 0)
+            {
+                throw new IOException("Input table on first line shows 0 or negative!");
+            }
             int tables = Convert.ToInt32(lines[0]);
             string[] input = new string[lines.Length-1];
             for (int i = 1; i < lines.Length; i++)
                 input[i-1] = lines[i];
-            return FormatTournament(GetAllowableParirings(input,tables));
+            //return FormatTournament(GetAllowableParirings(input, tables));
+            return FormatTournament(GetMatching(GetAllowableParirings(input,tables), tables));
         }
 
     }
