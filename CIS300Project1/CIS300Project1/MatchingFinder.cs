@@ -103,6 +103,10 @@ namespace CIS300Project1
         /// <returns></returns>return a string describing the corresponding tournament round as explained under "Output Format" above
         private static string FormatTournament(Pairing[] input)
         {
+            if(input == null)
+            {
+                throw new IOException("Something wrong in the calclulation");
+            }
             StringBuilder sb = new StringBuilder();
             for(int i=0;i<input.Length;i++)
             {

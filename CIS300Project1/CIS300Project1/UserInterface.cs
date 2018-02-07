@@ -47,6 +47,7 @@ namespace CIS300Project1
                     // variable ex will contain the exception.
                     //
                     MessageBox.Show(ex.ToString());
+                    uxTextBox.Text = (ex.ToString());
                 }
             }
         }
