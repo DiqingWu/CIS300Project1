@@ -41,6 +41,7 @@
             // uxOpenFileDialog
             // 
             this.uxOpenFileDialog.FileName = "uxOpenFileDialog";
+            this.uxOpenFileDialog.Filter = "CSV files|*.csv|All files|*.*";
             // 
             // uxToolStrip
             // 
@@ -86,6 +87,10 @@
             this.uxTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.uxTextBox.Size = new System.Drawing.Size(260, 246);
             this.uxTextBox.TabIndex = 1;
+            // 
+            // uxSaveFileDialog
+            // 
+            this.uxSaveFileDialog.Filter = "Text files|*.txt|All files|*.*";
             // 
             // UserInterface
             // 

@@ -49,9 +49,16 @@ namespace CIS300Project1
                     // control will immediately transfer here. The
                     // variable ex will contain the exception.
                     //
-                    MessageBox.Show(ex.ToString());
+                    
+                    MessageBox.Show("Error due to: \n"+ex.ToString());
+                    uxSaveTounamentButton.Enabled = false;
                     //uxTextBox.Text = (ex.ToString());
                 }
+            }
+            else
+            {
+                MessageBox.Show("No tournament found.");
+                uxSaveTounamentButton.Enabled = false;
             }
         }
         /// <summary>

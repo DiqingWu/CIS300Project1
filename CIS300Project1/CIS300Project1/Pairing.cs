@@ -14,27 +14,28 @@ namespace CIS300Project1
         /// <summary>
         /// gets an int giving the first player.
         /// </summary>
-        public int _FirstPlayer { get; private set; }
+        public int FirstPlayer { get; private set; }
         /// <summary>
         ///  gets an int giving the second player.
         /// </summary>
-        public int _SecondPlayer { get; private set; }
+        public int SecondPlayer { get; private set; }
         /// <summary>
         /// gets an int giving the table.
         /// </summary>
-        public int _Table { get; private set; }
+        public int Table { get; private set; }
         /// <summary>
         /// constructor of pairing class
         /// </summary>
         /// <param name="FirstPlayer"></param>an int giving the first player.
         /// <param name="SecondPlayer"></param>an int giving the second player.
         /// <param name="Table"></param>an int giving the table.
-        public Pairing(int FirstPlayer,int SecondPlayer,int Table)
+        public Pairing(int FirstPlayer1,int SecondPlayer1,int Table1)
         {
-            _FirstPlayer = FirstPlayer;
-            _SecondPlayer = SecondPlayer;
-            _Table = Table;
+            FirstPlayer = FirstPlayer1;
+            SecondPlayer = SecondPlayer1;
+            Table = Table1;
 
+         
         }
 
     }

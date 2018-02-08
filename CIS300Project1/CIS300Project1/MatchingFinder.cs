@@ -28,7 +28,7 @@ namespace CIS300Project1
             {
                 return value;
             }
-            throw new IOException("Line "+ columnPosition +" "+ rowPosition);
+            throw new IOException("Line " + columnPosition + " : The " + rowPosition+" is outside the allowable range" );
         }
         /// <summary>
         /// A private method to get the allowable pairings from the input lines
@@ -46,10 +46,10 @@ namespace CIS300Project1
                 line = input[i].Split(',');
                 if (line[0] == line[1])
                 {
-                    throw new IOException("Line "+i+1+" First player and Second player are same.");
+                    throw new IOException("Line "+i+2+" First player and Second player are same.");
                 }
                 else
-                pairs[i]= new Pairing(ValiddateElement(line[0],limit,i+1,"First Player not valid"), ValiddateElement(line[1], limit, i+1, "Second Player not valid"), ValiddateElement(line[2], tables, i+1, "Table not valid")); 
+                pairs[i]= new Pairing(ValiddateElement(line[0],limit,i+2,"First Player"), ValiddateElement(line[1], limit, i+2, "Second Player"), ValiddateElement(line[2], tables, i+2, "Table")); 
             }
             return pairs;
         }
@@ -78,18 +78,18 @@ namespace CIS300Project1
                 {
                     currentLocation = backTracking.Pop();
                     Pairing temp = input[currentLocation];
-                    playerInPosition[temp._FirstPlayer] = false;
-                    playerInPosition[temp._SecondPlayer] = false;
-                    tableInPosition[temp._Table] = null;
+                    playerInPosition[temp.FirstPlayer] = false;
+                    playerInPosition[temp.SecondPlayer] = false;
+                    tableInPosition[temp.Table] = null;
 
                 }
-                else if (playerInPosition[input[currentLocation]._FirstPlayer] == false && playerInPosition[input[currentLocation]._SecondPlayer] == false && tableInPosition[input[currentLocation]._Table]==null)
+                else if (playerInPosition[input[currentLocation].FirstPlayer] == false && playerInPosition[input[currentLocation].SecondPlayer] == false && tableInPosition[input[currentLocation].Table]==null)
                 {
 
-                        playerInPosition[input[currentLocation]._FirstPlayer] = true;
-                        playerInPosition[input[currentLocation]._SecondPlayer] = true;
+                        playerInPosition[input[currentLocation].FirstPlayer] = true;
+                        playerInPosition[input[currentLocation].SecondPlayer] = true;
                         //if(tableInPosition[currentLocation]==null)
-                        tableInPosition[input[currentLocation]._Table]= input[currentLocation];
+                        tableInPosition[input[currentLocation].Table]= input[currentLocation];
                         backTracking.Push(currentLocation);
                     
                 }
@@ -114,7 +114,7 @@ namespace CIS300Project1
             StringBuilder sb = new StringBuilder();
             for(int i=0;i<input.Length;i++)
             {
-                sb.Append("Table "+ input[i]._Table+" : "+input[i]._FirstPlayer+" vs. "+input[i]._SecondPlayer+Environment.NewLine);
+                sb.Append("Table "+ input[i].Table+" : "+input[i].FirstPlayer+" vs. "+input[i].SecondPlayer+Environment.NewLine);
             }
             return sb.ToString();
         }
@@ -126,13 +126,14 @@ namespace CIS300Project1
         public static string GetTournament(string name)
         {
             string[] lines = File.ReadAllLines(name);
-            if (lines == null)
+
+            if (Convert.ToInt32(lines[0]) < 1)
+            {
+                throw new IOException("he number of tables must be positive.");
+            }
+            else if (lines == null)
             {
                 throw new IOException("Input file is empty!");
-            }
-            else if (Convert.ToInt32(lines[0]) <= 0)
-            {
-                throw new IOException("Input table on first line shows 0 or negative!");
             }
             int tables = Convert.ToInt32(lines[0]);
             string[] input = new string[lines.Length-1];
