@@ -18,6 +18,9 @@ namespace CIS300Project1
 {
     public partial class UserInterface : Form
     {
+        /// <summary>
+        /// constructor for gui
+        /// </summary>
         public UserInterface()
         {
             InitializeComponent();
@@ -47,7 +50,7 @@ namespace CIS300Project1
                     // variable ex will contain the exception.
                     //
                     MessageBox.Show(ex.ToString());
-                    uxTextBox.Text = (ex.ToString());
+                    //uxTextBox.Text = (ex.ToString());
                 }
             }
         }

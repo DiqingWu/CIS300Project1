@@ -22,9 +22,9 @@ namespace CIS300Project1
         /// <summary>
         /// gets an int giving the table.
         /// </summary>
-        public int _Table { get; set; }
+        public int _Table { get; private set; }
         /// <summary>
-        /// 
+        /// constructor of pairing class
         /// </summary>
         /// <param name="FirstPlayer"></param>an int giving the first player.
         /// <param name="SecondPlayer"></param>an int giving the second player.

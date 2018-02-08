@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace CIS300Project1
 {
+    /// <summary>
+    /// MatchingFinder class
+    /// get file location and get the match and format the match and print result.
+    /// </summary>
     public static class  MatchingFinder
     {
         /// <summary>
